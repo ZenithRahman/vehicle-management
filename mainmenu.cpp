@@ -1,4 +1,6 @@
 #include "mainmenu.h"
+#include "vehicle.h"
+#include <cstdlib>
 #include <iostream>
 
 void renderMainMenu()
@@ -12,9 +14,11 @@ void renderMainMenu()
 	printf("4.Update vehicle information\n");
 	printf("5.Delete a vehicle\n");
 	printf("6.Exit Program\n");
-}
-
-void addNewVehicle()
-{
-	printf("add a new vehicle\n");
+	int choice =0;
+	std::cin>>choice;
+	if (choice==1)
+	{
+		std::system("clear");
+		addNewVehicle();
+	}
 }
