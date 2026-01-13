@@ -2,9 +2,12 @@
 #include "vehicle.h"
 #include <cstdlib>
 #include <iostream>
+#include <cstdio>
+using namespace std;
 
 void renderMainMenu()
 {
+	system("cls");
 	printf("Vehicle Management Program\n");
 	printf("Choose Selection (1-5)\n");
 	printf("-------------------------\n");
@@ -15,10 +18,25 @@ void renderMainMenu()
 	printf("5.Delete a vehicle\n");
 	printf("6.Exit Program\n");
 	int choice =0;
-	std::cin>>choice;
-	if (choice==1)
+	
+	
+	cin>>choice;
+	switch (choice)
 	{
-		std::system("clear");
+	case 1:
+		system("cls");
 		addNewVehicle();
+		break;
+	case 2:
+		system("cls");
+		showAllVehicles();
+		break;
+	case 3:
+		printf("Case 3");
+		break;
+	default:
+		printf("Invalid Choice");
+		break;
 	}
+
 }
