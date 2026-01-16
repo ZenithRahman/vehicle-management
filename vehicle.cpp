@@ -13,7 +13,7 @@ enum vehicleType
 	Bike
 };
 
-const struct vehicle
+struct vehicle
 {
 	string id;
 	vehicleType type;
@@ -56,7 +56,8 @@ void addNewVehicle()
 	}
 
 
-	printf("vehicle saved. Going back to main menu.\n");
+	printf("\n--- Vehicle Saved Successfully ---\n");
+	cin.get();
 	renderMainMenu();
 }
 
@@ -77,10 +78,11 @@ const char* getVehicleTypeName(vehicleType type) {
 
 void showAllVehicles()
 {
-	const string typesOfVehicles[] = { "Car","Bus","Truck","Bike" };
+	//const string typesOfVehicles[] = { "Car","Bus","Truck","Bike" };
 	if (vehicles.empty())
 	{
-		printf("No vehicle found");
+		printf("No vehicle found. Press any key to return");
+		returnToMainMenu();
 		return;
 	}
 	for (int i=0 ; i<vehicles.size();++i)
@@ -95,4 +97,39 @@ void showAllVehicles()
 		printf("Vehicle Capacity %d CC\n", v.capacity);
 
 	}
+	returnToMainMenu();
+}
+
+void searchVehicle()
+{
+	bool found = false;
+	string vehicleId;
+	printf("Enter Vehicle ID:\n");
+	cin >> vehicleId;
+	//printf("\n");
+	for (vehicle v : vehicles)
+	{
+		if (v.id==vehicleId)
+		{
+			printf("Vehicle found ! Press any key to return.\n");
+			printf("----------------------------\n");
+			printf("%ID : %s\n", v.id.c_str());
+			printf("Vehicle Type : %s\n", getVehicleTypeName(v.type));
+			printf("Vehicle Model: %s\n", v.modelName.c_str());
+			printf("Vehicle Brand: %s\n", v.brand.c_str());
+			printf("Vehicle Year: %d\n", v.year);
+			printf("Vehicle Capacity %d CC\n", v.capacity);
+			found = true;
+			break;
+
+		}
+	}
+	if (!found)
+	{
+	
+		printf("Not found ! Press any key to return.\n");
+	}
+	returnToMainMenu();
+	return;
+
 }

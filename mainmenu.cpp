@@ -32,11 +32,19 @@ void renderMainMenu()
 		showAllVehicles();
 		break;
 	case 3:
-		printf("Case 3");
+		system("cls");
+		searchVehicle();
 		break;
 	default:
 		printf("Invalid Choice");
 		break;
 	}
 
+}
+
+void returnToMainMenu()
+{
+	cin.ignore();
+	cin.get();
+	renderMainMenu();
 }
