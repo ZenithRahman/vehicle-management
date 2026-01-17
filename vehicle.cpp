@@ -133,3 +133,94 @@ void searchVehicle()
 	return;
 
 }
+
+void updateInformation() {
+    string vehicleId;
+    printf("Enter Vehicle ID: ");
+    cin >> vehicleId;
+
+    bool found = false;
+    for (vehicle &v : vehicles) {
+        if (v.id == vehicleId) {
+            found = true;
+            int choice;
+            do {
+                printf("\nVehicle found.:\n");
+                printf("1. Change Type\n");
+                printf("2. Change Brand\n");
+                printf("3. Change Model\n");
+                printf("4. Change Year\n");
+                printf("5. Change Capacity\n");
+                printf("6. Exit\n");
+                printf("Enter choice: (1-6)");
+                cin >> choice;
+
+                switch (choice) 
+                {
+                    case 1: 
+                        {
+                        int newType;
+                        printf("Enter new type: ");
+                        cin >> newType;
+                        v.type = static_cast<vehicleType>(newType);
+                        printf("Successfully changed!\n");
+                        break;
+                        }
+
+					case 2: 
+                       {
+                       	 string newBrand;
+                        printf("Enter new Brand name: ");
+                        cin >> newBrand;
+                        v.brand = newBrand;
+                        printf("Successfully changed!\n");
+                        break; 
+                       }
+
+					case 3: 
+                        {
+                        	string newModel;
+                        printf("Enter new Model name: ");
+                        cin >> newModel;
+                        v.modelName = newModel;
+                        printf("Successfully changed!\n");
+                        break; 
+                        } 
+					case 4: 
+                        {
+                        	int newYear;
+                        printf("Enter new Year: ");
+                        cin >> newYear;
+                        v.year = newYear;
+                        printf("Successfully changed!\n");
+                        break; 
+                        } 
+                    case 5: 
+                        {
+                        	int newCapacity;
+                        printf("Enter new capacity: ");
+                        cin >> newCapacity;
+                        v.capacity = newCapacity;
+                        printf("Successfully changed!\n");
+                        break; 
+                        }                      
+                    case 6:
+                        printf("Exiting menu.Press any key to continue\n");
+                        break;
+
+                    default:
+                        printf("Invalid choice.\n");
+                        break;
+                }
+            } while (choice != 6);
+            
+            break; 
+        }
+    }
+
+    if (!found) {
+        printf("Vehicle ID not found.\n");
+    }
+            returnToMainMenu();
+
+}

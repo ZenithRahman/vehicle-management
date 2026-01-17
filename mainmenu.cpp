@@ -35,6 +35,10 @@ void renderMainMenu()
 		system("cls");
 		searchVehicle();
 		break;
+	case 4:
+		system("cls");
+		updateInformation();
+		break;
 	default:
 		printf("Invalid Choice");
 		break;
