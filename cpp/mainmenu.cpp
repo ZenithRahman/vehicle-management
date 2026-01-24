@@ -9,7 +9,7 @@ void renderMainMenu()
 {
 	system("cls");
 	printf("Vehicle Management Program\n");
-	printf("Choose Selection (1-5)\n");
+	printf("Choose Selection (1-6)\n");
 	printf("-------------------------\n");
 	printf("1.Add a new vehicle\n");
 	printf("2.Show all vehicles\n");
@@ -39,6 +39,16 @@ void renderMainMenu()
 		system("cls");
 		updateInformation();
 		break;
+	case 5:
+		system("cls");
+		deleteVehicle();
+		break;
+	case 6:
+		system("cls");
+		printf("Exiting program...\n");
+		exit(0);
+		break;
+
 	default:
 		printf("Invalid Choice");
 		break;

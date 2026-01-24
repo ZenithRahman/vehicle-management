@@ -34,17 +34,23 @@ void addNewVehicle()
 	while (!finished)
 	{
 		printf("Enter vehicle id: (example: V001)\n");
-		cin >> v.id;
+		string inputId;
+		cin >> inputId;
+		while (checkIdExists(inputId))
+		{
+			cout << "ID already exists . please type another one:\n";
+			cin >> inputId;
+		}
+		v.id = inputId;
 
 		int typeInput;
 		printf("Enter vehicle type (0:Car, 1:Bus, 2:Truck, 3:Bike): \n");
 		cin >> typeInput;
 		v.type = static_cast<vehicleType>(typeInput);
-
-		printf("Enter vehicle model: \n");
-		cin >> v.modelName;
 		printf("Enter vehicle brand: \n");
 		cin >> v.brand;
+		printf("Enter vehicle model: \n");
+		cin >> v.modelName;
 		printf("Enter vehicle year: \n");
 		cin >> v.year;
 		printf("Enter vehicle capacity: (in CC) \n");
@@ -91,8 +97,8 @@ void showAllVehicles()
 		printf("----------------------------\n");
 		printf("%d. Vehicle ID : %s\n",i+1, v.id.c_str());
 		printf("Vehicle Type : %s\n", getVehicleTypeName(v.type));
-		printf("Vehicle Model: %s\n", v.modelName.c_str());
 		printf("Vehicle Brand: %s\n", v.brand.c_str());
+		printf("Vehicle Model: %s\n", v.modelName.c_str());
 		printf("Vehicle Year: %d\n", v.year);
 		printf("Vehicle Capacity %d CC\n", v.capacity);
 
@@ -115,8 +121,8 @@ void searchVehicle()
 			printf("----------------------------\n");
 			printf("%ID : %s\n", v.id.c_str());
 			printf("Vehicle Type : %s\n", getVehicleTypeName(v.type));
-			printf("Vehicle Model: %s\n", v.modelName.c_str());
 			printf("Vehicle Brand: %s\n", v.brand.c_str());
+			printf("Vehicle Model: %s\n", v.modelName.c_str());
 			printf("Vehicle Year: %d\n", v.year);
 			printf("Vehicle Capacity %d CC\n", v.capacity);
 			found = true;
@@ -130,7 +136,6 @@ void searchVehicle()
 		printf("Not found ! Press any key to return.\n");
 	}
 	returnToMainMenu();
-	return;
 
 }
 
@@ -223,4 +228,35 @@ void updateInformation() {
     }
             returnToMainMenu();
 
+}
+
+void deleteVehicle()
+{
+	string inputId;
+	cin >> inputId;
+	for (int i=0 ; i < vehicles.size();++i)
+	{
+		vehicle& v =vehicles[i];
+		if (v.id==inputId)
+		{
+			vehicles.erase(vehicles.begin() + i);
+			printf("Successfully deleted id : %s\n", inputId.c_str());
+			returnToMainMenu();
+
+			return;
+		}
+	}
+}
+
+bool checkIdExists(string inputId)
+{
+	for (int i = 0; i < vehicles.size(); ++i)
+	{
+		vehicle& v = vehicles[i];
+		if (v.id == inputId)
+		{
+			return true;
+		}
+	}
+	return false;
 }
