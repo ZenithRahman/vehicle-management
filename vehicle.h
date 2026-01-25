@@ -1,8 +1,6 @@
 #ifndef VEHICLE_H
 #define VEHICLE_H
 
-#include <stdbool.h>
-
 #define MAX_VEHICLES 100
 #define MAX_STRING_LENGTH 50
 
@@ -27,7 +25,8 @@ void showAllVehicles();
 void searchVehicle();
 void updateInformation();
 void deleteVehicle();
-bool checkIdExists(const char* inputId);
+int checkIdExists(const char* inputId);
+int returnVehicleIndex(const* inputId);
 const char* getVehicleTypeName(VehicleType type);
 
 #endif

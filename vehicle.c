@@ -9,21 +9,36 @@ int vehicleCount = 0;
 
 const char* getVehicleTypeName(VehicleType type) {
     switch (type) {
-    case Car: return "Car";
-    case Bus: return "Bus";
-    case Truck: return "Truck";
-    case Bike: return "Bike";
-    default: return "Unknown";
+    case Car:
+        return "Car";
+    case Bus: 
+        return "Bus";
+    case Truck: 
+        return "Truck";
+    case Bike: 
+        return "Bike";
+    default: 
+        return "Unknown";
     }
 }
 
-bool checkIdExists(const char* inputId) {
+int checkIdExists(const char* inputId) {
     for (int i = 0; i < vehicleCount; ++i) {
         if (strcmp(vehicles[i].id, inputId) == 0) {
-            return true;
+            return 1;
         }
     }
-    return false;
+    return 0;
+}
+
+int returnVehicleIndex(const* inputId)
+{
+	for (int i = 0; i < vehicleCount; ++i) {
+		if (strcmp(vehicles[i].id, inputId) == 0) {
+			return i;
+		}
+	}
+	return -1;
 }
 
 void addNewVehicle() {
@@ -45,7 +60,7 @@ void addNewVehicle() {
         int typeInput;
         printf("Enter vehicle type (0:Car, 1:Bus, 2:Truck, 3:Bike): \n");
         scanf("%d", &typeInput);
-        v.type = (VehicleType)typeInput;
+        v.type = (VehicleType) typeInput;
 
         printf("Enter vehicle brand: \n");
         scanf("%s", v.brand);
@@ -81,7 +96,8 @@ void showAllVehicles() {
         returnToMainMenu();
         return;
     }
-    for (int i = 0; i < vehicleCount; ++i) {
+    for (int i = 0; i < vehicleCount; ++i) 
+    {
         Vehicle v = vehicles[i];
         printf("----------------------------\n");
         printf("%d. Vehicle ID : %s\n", i + 1, v.id);
@@ -95,29 +111,46 @@ void showAllVehicles() {
 }
 
 void searchVehicle() {
-    int found = 0;
     char vehicleId[MAX_STRING_LENGTH];
     printf("Enter Vehicle ID:\n");
     scanf("%s", vehicleId);
+	int found = returnVehicleIndex(vehicleId);
 
-    for (int i = 0; i < vehicleCount; ++i) {
-        Vehicle v = vehicles[i];
-        if (strcmp(v.id, vehicleId) == 0) {
-            printf("Vehicle found ! Press any key to return.\n");
-            printf("----------------------------\n");
-            printf("ID : %s\n", v.id);
-            printf("Vehicle Type : %s\n", getVehicleTypeName(v.type));
-            printf("Vehicle Brand: %s\n", v.brand);
-            printf("Vehicle Model: %s\n", v.modelName);
-            printf("Vehicle Year: %d\n", v.year);
-            printf("Vehicle Capacity %d CC\n", v.capacity);
-            found = 1;
-            break;
-        }
+    if (found==-1)
+    {
+		printf("Not found ! Press any key to return.\n");
     }
-    if (!found) {
+    else
+    {
+		Vehicle v = vehicles[found];
+		        printf("Vehicle found ! Press any key to return.\n");
+		        printf("----------------------------\n");
+		        printf("ID : %s\n", v.id);
+		        printf("Vehicle Type : %s\n", getVehicleTypeName(v.type));
+		        printf("Vehicle Brand: %s\n", v.brand);
+		        printf("Vehicle Model: %s\n", v.modelName);
+		        printf("Vehicle Year: %d\n", v.year);
+		        printf("Vehicle Capacity: %d CC\n", v.capacity);
+    }
+
+    //for (int i = 0; i < vehicleCount; ++i) {
+    //    Vehicle v = vehicles[i];
+    //    if (strcmp(v.id, vehicleId) == 0) {
+    //        printf("Vehicle found ! Press any key to return.\n");
+    //        printf("----------------------------\n");
+    //        printf("ID : %s\n", v.id);
+    //        printf("Vehicle Type : %s\n", getVehicleTypeName(v.type));
+    //        printf("Vehicle Brand: %s\n", v.brand);
+    //        printf("Vehicle Model: %s\n", v.modelName);
+    //        printf("Vehicle Year: %d\n", v.year);
+    //        printf("Vehicle Capacity: %d CC\n", v.capacity);
+    //        found = 1;
+    //        break;
+    //    }
+    //}
+   /* if (!found) {
         printf("Not found ! Press any key to return.\n");
-    }
+    }*/
     returnToMainMenu();
 }
 
@@ -130,16 +163,24 @@ void updateInformation() {
     for (int i = 0; i < vehicleCount; ++i) {
         if (strcmp(vehicles[i].id, vehicleId) == 0) {
             found = 1;
+            Vehicle v = vehicles[i];
             int choice;
+				printf("\nVehicle found.:\n");
+			printf("Vehicle ID: %s\n", v.id);
+			printf("Vehicle Brand: %s\n", v.brand);
+			printf("Vehicle Model: %s\n", v.modelName);
+			printf("Vehicle Type: %s\n", getVehicleTypeName(v.type));
+			printf("Vehicle Year: %d\n", v.year);
+			printf("Vehicle Engine Capacity: %d CC\n",v.capacity);
             do {
-                printf("\nVehicle found.:\n");
+     
                 printf("1. Change Type\n");
                 printf("2. Change Brand\n");
                 printf("3. Change Model\n");
                 printf("4. Change Year\n");
                 printf("5. Change Capacity\n");
                 printf("6. Exit\n");
-                printf("Enter choice: (1-6)");
+                printf("Enter choice: (1-6) : ");
                 scanf("%d", &choice);
 
                 switch (choice) {
@@ -198,18 +239,18 @@ void updateInformation() {
 }
 
 void deleteVehicle() {
-    char inputId[MAX_STRING_LENGTH];
+	char inputId[MAX_STRING_LENGTH];
+	printf("Enter Vehicle ID: \n");
     scanf("%s", inputId);
-    for (int i = 0; i < vehicleCount; ++i) {
-        if (strcmp(vehicles[i].id, inputId) == 0) {
-            // Shift remaining elements
-            for (int j = i; j < vehicleCount - 1; ++j) {
-                vehicles[j] = vehicles[j + 1];
-            }
-            vehicleCount--;
-            printf("Successfully deleted id : %s\n", inputId);
-            returnToMainMenu();
-            return;
-        }
-    }
+	for (int i = 0; i < vehicleCount; ++i) {
+		if (strcmp(vehicles[i].id, inputId) == 0) {
+			for (int j = i; j < vehicleCount - 1; ++j) {
+				vehicles[j] = vehicles[j + 1];
+			}
+			vehicleCount--;
+			printf("Successfully deleted id : %s\n", inputId);
+			returnToMainMenu();
+			return;
+		}
+	}
 }
